@@ -4,7 +4,7 @@ import authService from '../service/authService';
 import { BodyUser } from '../protocols';
 
 export async function signUp(req: Request, res: Response) {
-  const body = req.body as BodyUser;
+  const body = res.locals.body as BodyUser;
 
   try {
     const user = await authService.signUp(body);

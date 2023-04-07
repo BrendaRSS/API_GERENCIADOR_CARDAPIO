@@ -8,8 +8,7 @@ import { BodyUser } from '../protocols';
 async function signUp(body: BodyUser) {
   const emailExist = await authRepository.findUserByEmail(body.email);
   if (emailExist){
-    console.log(emailExist);
-      throw conflictError();
+    throw conflictError();
   }
 
   const postSignUp = await authRepository.signUp(body);
