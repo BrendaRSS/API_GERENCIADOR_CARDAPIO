@@ -1,5 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
+  createCategory,
   findAllCategories,
   findAllProducts,
   findOneProduct,
@@ -10,11 +11,12 @@ import {
 
 const productsRoutes = Router();
 
-productsRoutes.get("/category", findAllCategories);
-productsRoutes.get("/product", findAllProducts);
-productsRoutes.get("/product:id", findOneProduct);
-productsRoutes.post("/product", createProduct);
-productsRoutes.patch("/product/:id", updateProduct);
-productsRoutes.delete("/product:id", deleteProduct);
+// productsRoutes.post('/category', createCategory);
+productsRoutes.get('/category', findAllCategories);
+productsRoutes.get('/product', findAllProducts);
+productsRoutes.get('/product/:id', findOneProduct);
+productsRoutes.post('/product', createProduct);
+productsRoutes.patch('/product/:id', updateProduct);
+productsRoutes.delete('/product:id', deleteProduct);
 
 export default productsRoutes;
