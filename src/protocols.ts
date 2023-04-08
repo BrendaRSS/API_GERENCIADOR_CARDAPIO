@@ -4,8 +4,10 @@ export type ApplicationError = {
 };
 
 export type BodyUser = {
-  name: String,
-  email: String,
-  password: String,
-  avatar: String,
+  name: string,
+  email: string,
+  password: string,
+  avatar: string,
 }
+
+export type Login = Omit<BodyUser, "name" | "avatar">

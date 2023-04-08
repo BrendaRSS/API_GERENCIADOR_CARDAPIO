@@ -2,9 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import { signUpSchema } from '../schemas/schemas';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
+import { BodyUser } from '../protocols';
 
 export default function signUpValidation(req: Request, res: Response, next: NextFunction) {
-  const body = req.body;
+  const body = req.body as BodyUser;
 
   const { error } = signUpSchema.validate(body, { abortEarly: false });
   if (error) {
