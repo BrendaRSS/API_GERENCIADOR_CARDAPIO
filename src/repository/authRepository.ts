@@ -6,17 +6,15 @@ async function signUp(body: BodyUser) {
   return await User.create(body);
 }
 
-async function findUserByEmail(email: string){
-    return await User.findOne({
-        email: email
-    })
+async function findUserByEmail(email: string) {
+  return await User.findOne({
+    email: email,
+  });
 }
 
-async function findSession(token: string){
+async function findSession(token: string) {}
 
-}
-
-async function findUserById(id){
+async function findUserById(id) {
   return await User.findById(id);
 }
 
