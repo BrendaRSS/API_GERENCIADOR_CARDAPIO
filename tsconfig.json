@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "outDir": "dist",
-    "baseUrl": "src",
+    "baseUrl": "src"
   },
   "ts-node": {
     "esm": true
