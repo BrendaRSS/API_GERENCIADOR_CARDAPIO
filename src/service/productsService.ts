@@ -19,10 +19,20 @@ async function findOneProduct(id){
     return product;
 }
 
+async function createProduct(product){
+    const productCreated = await productsRepository.createProduct(product);
+    if (!productCreated) {
+        throw badRequestError();
+    }
+
+    return productCreated;
+}
+
 const productsService = {
   findAllCategories,
   findAllProducts,
   findOneProduct,
+  createProduct,
 };
 
 export default productsService;

@@ -13,10 +13,15 @@ async function findOneProduct(id){
     return await Product.findById(id);
 }
 
+async function createProduct(product){
+    return await Product.create(product);
+}
+
 const productsRepository = {
   findAllCategories,
   findAllProducts,
   findOneProduct,
+  createProduct,
 };
 
 export default productsRepository;

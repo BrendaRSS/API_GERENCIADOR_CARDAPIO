@@ -40,12 +40,30 @@ export async function findAllProducts(req: Request, res: Response) {
 
 export async function findOneProduct(req: Request, res: Response) {
   const id = req.params.id;
-  if(!mongoose.Types.ObjectId.isValid(id)){
-    return res.status(httpStatus.UNPROCESSABLE_ENTITY).send("Invalid id");
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).send('Invalid id');
   }
-  
+
   try {
     const product = await productsService.findOneProduct(id);
+
+    res.status(httpStatus.OK).send(product);
+  } catch (error) {
+    console.log(error);
+    if (error.name === 'NotFoundError') {
+      return res.status(httpStatus.NOT_FOUND).send('Could not perform the request');
+    }
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+export async function createProduct(req: Request, res: Response) {
+  const body = req.body;
+  //verificar body em um joi
+  // verificar se o usuário é adm com middleware
+
+  try {
+    const product = await productsService.createProduct(body);
 
     res.status(httpStatus.OK).send(product);
   } catch (error) {
@@ -54,16 +72,9 @@ export async function findOneProduct(req: Request, res: Response) {
   }
 }
 
-export async function createProduct(req: Request, res: Response) {
-  try {
-    res.status(httpStatus.OK).send('Requisições aqui');
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
-  }
-}
-
 export async function updateProduct(req: Request, res: Response) {
+  //verificar body em um joi
+  // verificar se o usuário é adm com middleware
   try {
     res.status(httpStatus.OK).send('Requisições aqui');
   } catch (error) {
@@ -73,6 +84,7 @@ export async function updateProduct(req: Request, res: Response) {
 }
 
 export async function deleteProduct(req: Request, res: Response) {
+  // verificar se o usuário é adm com middleware
   try {
     res.status(httpStatus.OK).send('Requisições aqui');
   } catch (error) {
