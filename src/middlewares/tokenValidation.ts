@@ -16,7 +16,7 @@ export default async function tokenValidation(req: Request, res: Response, next:
   try {
     jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
       if (error) {
-        return res.status(401).send('token inválido');
+        return res.status(httpStatus.UNAUTHORIZED).send('invalid token');
       }
 
       const user = await authRepository.findUserById((<any>decoded).id);

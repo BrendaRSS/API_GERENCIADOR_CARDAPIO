@@ -3,15 +3,15 @@ import authRepository from '../repository/authRepository';
 import conflictError from '../errors/conflictError';
 import badRequestError from '../errors/badRequestError';
 import { BodyUser, Login } from '../protocols';
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 import { ObjectId } from 'mongoose';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 import jwt from 'jsonwebtoken';
 
 async function signUp(body: BodyUser) {
   const emailExist = await authRepository.findUserByEmail(body.email);
-  if (emailExist){
+  if (emailExist) {
     throw conflictError();
   }
 
@@ -27,25 +27,25 @@ async function signUp(body: BodyUser) {
 
 async function signIn(body: Login) {
   const userExist = await authRepository.findUserByEmail(body.email);
-  if (!userExist){
-      throw unauthorizedError();
+  if (!userExist) {
+    throw unauthorizedError();
   }
-  const passwordValidate = bcrypt.compareSync(body.password, userExist.password)
-  if (!passwordValidate){
-      throw unauthorizedError();
+  const passwordValidate = bcrypt.compareSync(body.password, userExist.password);
+  if (!passwordValidate) {
+    throw unauthorizedError();
   }
 
   const token = await createSession(userExist.id);
 
- delete userExist.password
+  delete userExist.password;
 
   return {
     user: userExist,
-    token
+    token,
   };
 }
 
-async function createSession(id: ObjectId){
+async function createSession(id: ObjectId) {
   const token = jwt.sign({ id: id }, process.env.SECRET_JWT, { expiresIn: 86400 });
 
   return token;

@@ -11,3 +11,10 @@ export type BodyUser = {
 }
 
 export type Login = Omit<BodyUser, "name" | "avatar">
+
+export type ProductBody = {
+  categories: Array<string>,
+  name: string,
+  price: number,
+  qty: number,
+}

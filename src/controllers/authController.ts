@@ -22,18 +22,17 @@ export async function signUp(req: Request, res: Response) {
   }
 }
 
-
 export async function signIn(req: Request, res: Response) {
-    const body = res.locals.body as Login;
-    try {
-      const userToken = await authService.signIn(body);
+  const body = res.locals.body as Login;
+  try {
+    const userToken = await authService.signIn(body);
 
-      return res.status(200).send(userToken);
-    } catch (error) {
-      console.log(error);
-      if (error.name === 'UnauthorizedError') {
-        return res.sendStatus(httpStatus.UNAUTHORIZED);
-      }
-      return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+    return res.status(200).send(userToken);
+  } catch (error) {
+    console.log(error);
+    if (error.name === 'UnauthorizedError') {
+      return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
