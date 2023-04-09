@@ -12,16 +12,13 @@ async function findUserByEmail(email: string) {
   });
 }
 
-async function findSession(token: string) {}
-
-async function findUserById(id) {
+async function findUserById(id: ObjectId) {
   return await User.findById(id);
 }
 
 const authRepository = {
   signUp,
   findUserByEmail,
-  findSession,
   findUserById,
 };
 

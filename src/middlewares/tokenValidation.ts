@@ -20,6 +20,9 @@ export default async function tokenValidation(req: Request, res: Response, next:
       }
 
       const user = await authRepository.findUserById((<any>decoded).id);
+      if (!user) {
+        return res.status(httpStatus.UNAUTHORIZED).send('User does not exist');
+      }
 
       res.locals.user = user;
       next();

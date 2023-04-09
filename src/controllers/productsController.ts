@@ -85,7 +85,7 @@ export async function updateProduct(req: Request, res: Response) {
   try {
     const update = await productsService.updateProduct(id, name, qty, price, categories);
 
-    res.status(httpStatus.OK).send(update);
+    res.sendStatus(httpStatus.OK);
   } catch (error) {
     console.log(error);
     if (error.name === 'BadRequestError') {

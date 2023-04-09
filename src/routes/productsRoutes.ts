@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import {
-  createCategory,
   findAllCategories,
   findAllProducts,
   findOneProduct,
@@ -15,7 +14,6 @@ import productCreateValidation from '../middlewares/productCreateValidation';
 const productsRoutes = Router();
 
 productsRoutes.use(tokenValidation);
-// productsRoutes.post('/category', createCategory);
 productsRoutes.get('/category', findAllCategories);
 productsRoutes.get('/product', findAllProducts);
 productsRoutes.get('/product/:id', findOneProduct);
