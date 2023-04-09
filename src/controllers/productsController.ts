@@ -73,9 +73,15 @@ export async function createProduct(req: Request, res: Response) {
 }
 
 export async function updateProduct(req: Request, res: Response) {
+  const { name, qty, price, categories } = req.body;
+  const id = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).send('Invalid id');
+  }
   //verificar body em um joi
   // verificar se o usuário é adm com middleware
   try {
+    const update = await productsService.updateProduct(id, name, qty, price, categories);
     res.status(httpStatus.OK).send('Requisições aqui');
   } catch (error) {
     console.log(error);
