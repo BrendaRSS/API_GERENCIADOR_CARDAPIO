@@ -48,8 +48,6 @@ async function signIn(body: Login) {
 async function createSession(id: ObjectId){
   const token = jwt.sign({ id: id }, process.env.SECRET_JWT, { expiresIn: 86400 });
 
-  await authRepository.createSession(token, id);
-
   return token;
 }
 

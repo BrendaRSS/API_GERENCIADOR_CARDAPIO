@@ -9,7 +9,7 @@ async function findAllProducts(){
     return await Product.find().sort({ _id: -1 }).populate('categories');
 }
 
-async function findOneProduct(id){
+async function findOneProduct(id: string){
     return await Product.findById(id).populate('categories');
 }
 
