@@ -6,11 +6,11 @@ async function findAllCategories(){
 }
 
 async function findAllProducts(){
-    return await Product.find();
+    return await Product.find().sort({ _id: -1 }).populate('categories');
 }
 
 async function findOneProduct(id){
-    return await Product.findById(id);
+    return await Product.findById(id).populate('categories');
 }
 
 async function createProduct(product){
@@ -24,12 +24,17 @@ async function updateProduct(id, name, qty, price,  categories){
     );
 }
 
+async function deleteProduct(id: string){
+    return await Product.findByIdAndDelete({_id: id});
+}
+
 const productsRepository = {
   findAllCategories,
   findAllProducts,
   findOneProduct,
   createProduct,
   updateProduct,
+  deleteProduct,
 };
 
 export default productsRepository;

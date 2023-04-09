@@ -60,7 +60,6 @@ export async function findOneProduct(req: Request, res: Response) {
 export async function createProduct(req: Request, res: Response) {
   const body = req.body;
   //verificar body em um joi
-  // verificar se o usuário é adm com middleware
 
   try {
     const product = await productsService.createProduct(body);
@@ -79,10 +78,10 @@ export async function updateProduct(req: Request, res: Response) {
     return res.status(httpStatus.UNPROCESSABLE_ENTITY).send('Invalid id');
   }
   //verificar body em um joi
-  // verificar se o usuário é adm com middleware
   try {
     const update = await productsService.updateProduct(id, name, qty, price, categories);
-    res.status(httpStatus.OK).send('Requisições aqui');
+
+    res.status(httpStatus.OK).send(update);
   } catch (error) {
     console.log(error);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
@@ -90,9 +89,15 @@ export async function updateProduct(req: Request, res: Response) {
 }
 
 export async function deleteProduct(req: Request, res: Response) {
-  // verificar se o usuário é adm com middleware
+  const id = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).send('Invalid id');
+  }
+
   try {
-    res.status(httpStatus.OK).send('Requisições aqui');
+    const productDeleted = await productsService.deleteProduct(id);
+
+    res.status(httpStatus.OK).send(productDeleted);
   } catch (error) {
     console.log(error);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);

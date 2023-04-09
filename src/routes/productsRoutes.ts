@@ -9,6 +9,7 @@ import {
   deleteProduct,
 } from '../controllers/productsController';
 import tokenValidation from '../middlewares/tokenValidation';
+import admValidation from '../middlewares/admValidation';
 
 const productsRoutes = Router();
 
@@ -17,8 +18,8 @@ productsRoutes.use(tokenValidation);
 productsRoutes.get('/category', findAllCategories);
 productsRoutes.get('/product', findAllProducts);
 productsRoutes.get('/product/:id', findOneProduct);
-productsRoutes.post('/product', createProduct);
-productsRoutes.patch('/product/:id', updateProduct);
-productsRoutes.delete('/product:id', deleteProduct);
+productsRoutes.post('/product', admValidation, createProduct);
+productsRoutes.patch('/product/:id', admValidation, updateProduct);
+productsRoutes.delete('/product/:id', admValidation, deleteProduct);
 
 export default productsRoutes;

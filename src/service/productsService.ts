@@ -40,12 +40,19 @@ async function updateProduct(id: string, name: string, qty: number, price: numbe
   return update;
 }
 
+async function deleteProduct(id: string){
+  const productDeleted = await productsRepository.deleteProduct(id);
+
+  return productDeleted;
+}
+
 const productsService = {
   findAllCategories,
   findAllProducts,
   findOneProduct,
   createProduct,
   updateProduct,
+  deleteProduct,
 };
 
 export default productsService;
