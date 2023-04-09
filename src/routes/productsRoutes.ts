@@ -8,9 +8,11 @@ import {
   updateProduct,
   deleteProduct,
 } from '../controllers/productsController';
+import tokenValidation from '../middlewares/tokenValidation';
 
 const productsRoutes = Router();
 
+productsRoutes.use(tokenValidation);
 // productsRoutes.post('/category', createCategory);
 productsRoutes.get('/category', findAllCategories);
 productsRoutes.get('/product', findAllProducts);
